@@ -1,0 +1,126 @@
+{
+    "auth": {
+        "title": "Esemény foglalás",
+        "login_tab": "Bejelentkezés",
+        "register_tab": "Regisztráció",
+        "email": "Email",
+        "email_placeholder": "email@pelda.hu",
+        "password": "Jelszó",
+        "password_placeholder": "Jelszó",
+        "name": "Név",
+        "name_placeholder": "Név",
+        "password_confirmation": "Jelszó megerősítése",
+        "password_confirmation_placeholder": "Jelszó újra",
+        "login_button": "Belépés",
+        "register_button": "Fiók létrehozása",
+        "register_note": "Regisztráció után automatikusan be leszel jelentkeztetve."
+    },
+    "common": {
+        "loading": "Betöltés...",
+        "submit": "Beküldés",
+        "cancel": "Mégse",
+        "not_found": "A kért erőforrás nem található.",
+        "unknown_error": "Ismeretlen hiba történt.",
+        "back_to_events": "Vissza az eseményekhez",
+        "close": "Bezárás",
+        "title": "Event App",
+        "search": "Keresés",
+        "prev": "Előző",
+        "next": "Következő",
+        "save": "Mentés"
+    },
+    "nav": {
+        "events": "Események",
+        "my_bookings": "Foglalásaim",
+        "welcome": "Szia, {name}",
+        "profile": "Profil",
+        "logout": "Kijelentkezés",
+        "login": "Bejelentkezés"
+    },
+    "profile": {
+        "title": "Felhasználói profil",
+        "name": "Név",
+        "email": "Email",
+        "close_button": "Bezárás",
+        "update_button": "Profil frissítése",
+        "success_message": "A profil sikeresen frissítve.",
+        "role": "Szerepkör",
+        "admin": "Adminisztrátor",
+        "user": "Felhasználó"
+    },
+    "events": {
+        "title": "Események",
+        "search_placeholder": "Cím, leírás vagy helyszín szerint keresés...",
+        "sort_by": "Rendezés",
+        "per_page": "Oldalanként",
+        "sort": {
+            "starts_at": "Kezdés dátuma",
+            "title": "Cím",
+            "created_at": "Létrehozás dátuma"
+        },
+        "starts_at": "Kezdés dátuma",
+        "ends_at": "Befejezés dátuma",
+        "location": "Helyszín",
+        "price": "Ár",
+        "free": "Ingyenes",
+        "details": "Részletek",
+        "empty": "Nincs találat.",
+        "sold_out": "Elfogyott",
+        "available_seats": "{count} szabad hely",
+        "capacity": "Férőhely",
+        "available": "Elérhető",
+        "edit_success": "Esemény sikeresen frissítve."
+    },
+    "bookings": {
+        "book_button": "Foglalás",
+        "modal_title": "Helyfoglalás",
+        "available": "Elérhető helyek",
+        "seats_label": "Foglalni kívánt helyek",
+        "seats_help": "Add meg hány helyet szeretnél foglalni.",
+        "submit": "Foglalás megerősítése"
+    },
+    "admin_events": {
+        "add_button": "Esemény felvétele",
+        "create_title": "Esemény létrehozása",
+        "title": "Cím",
+        "description": "Leírás",
+        "location": "Helyszín",
+        "starts_at": "Kezdés",
+        "ends_at": "Befejezés",
+        "price": "Ár",
+        "capacity": "Férőhely",
+        "create_submit": "Létrehozás",
+        "edit_button": "Szerkesztés"
+    },
+    "admin_participants": {
+        "title": "Résztvevők",
+        "search_placeholder": "Név vagy email keresése...",
+        "export": "CSV export",
+        "name": "Név",
+        "email": "Email",
+        "seats_booked": "Jegyek",
+        "booked_at": "Foglalás ideje",
+        "empty": "Még nincs résztvevő."
+    },
+    "my_bookings": {
+        "title": "Saját foglalásaim",
+        "empty": "Még nincs foglalásod.",
+        "details": "Részletek",
+        "cancel": "Foglalás lemondása",
+        "cancel_confirm_title": "Foglalás lemondása",
+        "cancel_confirm_text": "Biztosan lemondod a foglalásodat erre az eseményre: „{title}”?",
+        "sort_by": "Rendezés",
+        "sort": {
+            "created_at": "Foglalás ideje",
+            "starts_at": "Esemény kezdése",
+            "title": "Esemény címe"
+        },
+        "starts_at": "Kezdés",
+        "location": "Helyszín",
+        "seats": "Jegyek",
+        "status": "Állapot",
+        "active": "Aktív",
+        "cancelled": "Lemondva",
+        "booked_at": "Foglalás ideje"
+    }
+}

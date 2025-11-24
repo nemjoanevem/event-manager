@@ -1,0 +1,126 @@
+{
+    "auth": {
+        "title": "Event booking",
+        "login_tab": "Login",
+        "register_tab": "Register",
+        "email": "Email",
+        "email_placeholder": "you@example.com",
+        "password": "Password",
+        "password_placeholder": "Your password",
+        "name": "Name",
+        "name_placeholder": "Your name",
+        "password_confirmation": "Confirm password",
+        "password_confirmation_placeholder": "Repeat password",
+        "login_button": "Login",
+        "register_button": "Create account",
+        "register_note": "Registration logs you in automatically."
+    },
+    "common": {
+        "loading": "Loading...",
+        "submit": "Submit",
+        "cancel": "Cancel",
+        "not_found": "The requested resource was not found.",
+        "unknown_error": "Something went wrong.",
+        "back_to_events": "Back to events",
+        "close": "Close",
+        "title": "Event App",
+        "search": "Search",
+        "prev": "Previous",
+        "next": "Next",
+        "save": "Save"
+    },
+    "nav": {
+        "events": "Events",
+        "my_bookings": "My bookings",
+        "welcome": "Hi, {name}",
+        "profile": "Profile",
+        "logout": "Logout",
+        "login": "Login"
+    },
+    "profile": {
+        "title": "User Profile",
+        "name": "Name",
+        "email": "Email",
+        "close_button": "Close",
+        "update_button": "Update Profile",
+        "success_message": "Profile updated successfully.",
+        "role": "Role",
+        "admin": "Admin",
+        "user": "User"
+    },
+    "events": {
+        "title": "Events",
+        "search_placeholder": "Search by title, description or location...",
+        "sort_by": "Sort by",
+        "per_page": "Per page",
+        "sort": {
+            "starts_at": "Start date",
+            "title": "Title",
+            "created_at": "Created"
+        },
+        "starts_at": "Starts",
+        "ends_at": "Ends",
+        "location": "Location",
+        "price": "Price",
+        "free": "Free",
+        "details": "Details",
+        "empty": "No events found.",
+        "sold_out": "Sold out",
+        "available_seats": "{count} seats left",
+        "capacity": "Capacity",
+        "available": "Available",
+        "edit_success": "Event updated successfully."
+    },
+    "bookings": {
+        "book_button": "Book",
+        "modal_title": "Book seats",
+        "available": "Available seats",
+        "seats_label": "Seats to book",
+        "seats_help": "Enter how many seats you want to book.",
+        "submit": "Confirm booking"
+    },
+    "admin_events": {
+        "add_button": "Add event",
+        "create_title": "Create event",
+        "title": "Title",
+        "description": "Description",
+        "location": "Location",
+        "starts_at": "Starts at",
+        "ends_at": "Ends at",
+        "price": "Price",
+        "capacity": "Capacity",
+        "create_submit": "Create",
+        "edit_button": "Edit"
+    },
+    "admin_participants": {
+        "title": "Participants",
+        "search_placeholder": "Search name or email...",
+        "export": "Export CSV",
+        "name": "Name",
+        "email": "Email",
+        "seats_booked": "Seats",
+        "booked_at": "Booked at",
+        "empty": "No participants yet."
+    },
+    "my_bookings": {
+        "title": "My bookings",
+        "empty": "You have no bookings yet.",
+        "details": "Details",
+        "cancel": "Cancel booking",
+        "cancel_confirm_title": "Cancel booking",
+        "cancel_confirm_text": "Are you sure you want to cancel your booking for “{title}”?",
+        "sort_by": "Sort by",
+        "sort": {
+            "created_at": "Booked at",
+            "starts_at": "Event start",
+            "title": "Event title"
+        },
+        "starts_at": "Starts",
+        "location": "Location",
+        "seats": "Seats",
+        "status": "Status",
+        "active": "Active",
+        "cancelled": "Cancelled",
+        "booked_at": "Booked at"
+    }
+}
