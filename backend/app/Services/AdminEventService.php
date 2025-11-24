@@ -29,6 +29,12 @@ class AdminEventService
      */
     public function update(Event $event, array $data): Event
     {
+        if (isset($data['capacity']) && $data['capacity'] < $event->activeBookings()->sum('seats_booked')) {
+            throw ValidationException::withMessages([
+                'capacity' => [__('events.capacity_too_low')],
+            ]);
+        }
+
         $event->update($data);
 
         return $event->refresh();
