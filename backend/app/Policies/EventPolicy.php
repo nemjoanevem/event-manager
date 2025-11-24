@@ -30,4 +30,12 @@ class EventPolicy
     {
         return (bool) $user->is_admin;
     }
+
+    /**
+     * Only admins may view event participants.
+     */
+    public function viewParticipants(User $user, Event $event): bool
+    {
+        return (bool) $user->is_admin;
+    }
 }

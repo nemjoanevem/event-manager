@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\BookingController;
 use App\Http\Controllers\Api\AdminEventController;
+use App\Http\Controllers\Api\AdminEventParticipantsController;
 
 Route::get('/ping', fn () => response()->json(['message' => 'pong']));
 
@@ -25,4 +26,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/admin/events', [AdminEventController::class, 'store'])->name('admin.events.store');
     Route::put('/admin/events/{event}', [AdminEventController::class, 'update'])->name('admin.events.update');
     Route::delete('/admin/events/{event}', [AdminEventController::class, 'destroy'])->name('admin.events.destroy');
+
+    Route::get('/admin/events/{event}/participants', [AdminEventParticipantsController::class, 'index'])
+        ->name('admin.events.participants.index');
+
+    Route::get('/admin/events/{event}/participants/export', [AdminEventParticipantsController::class, 'export'])
+        ->name('admin.events.participants.export');
 });
