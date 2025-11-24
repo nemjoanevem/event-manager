@@ -12,7 +12,8 @@ class EventService
      */
     public function paginate(array $filters): LengthAwarePaginator
     {
-        $query = Event::query();
+        $query = Event::query()
+            ->withSum('activeBookings', 'seats_booked');
 
         if (! empty($filters['search'])) {
             $search = $filters['search'];

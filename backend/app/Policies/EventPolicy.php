@@ -8,18 +8,26 @@ use App\Models\User;
 class EventPolicy
 {
     /**
-     * Any user may list events.
+     * Only admins may create events.
      */
-    public function viewAny(User $user): bool
+    public function create(User $user): bool
     {
-        return true;
+        return (bool) $user->is_admin;
     }
 
     /**
-     * Any user may view an event.
+     * Only admins may update events.
      */
-    public function view(User $user, Event $event): bool
+    public function update(User $user, Event $event): bool
     {
-        return true;
+        return (bool) $user->is_admin;
+    }
+
+    /**
+     * Only admins may delete events.
+     */
+    public function delete(User $user, Event $event): bool
+    {
+        return (bool) $user->is_admin;
     }
 }

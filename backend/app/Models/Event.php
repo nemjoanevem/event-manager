@@ -49,7 +49,12 @@ class Event extends Model
 
     public function getAvailableSeatsAttribute(): int
     {
-        $booked = $this->activeBookings()->sum('seats_booked');
-        return max(0, $this->capacity - $booked);
+        $activeSum = $this->active_bookings_sum_seats_booked ?? null;
+
+        if ($activeSum === null) {
+            $activeSum = $this->activeBookings()->sum('seats_booked');
+        }
+
+        return max(0, $this->capacity - (int) $activeSum);
     }
 }
