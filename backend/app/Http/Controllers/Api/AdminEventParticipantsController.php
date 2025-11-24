@@ -46,7 +46,7 @@ class AdminEventParticipantsController extends Controller
         return response()->streamDownload(function () use ($rows) {
             $out = fopen('php://output', 'w');
 
-            fputcsv($out, ['Name', 'Email', 'Seats booked', 'Booked at']);
+            fputcsv($out, [__('events.Name'), __('events.Email'), __('events.Seats booked'), __('events.Booked at')]);
 
             foreach ($rows as $booking) {
                 fputcsv($out, [

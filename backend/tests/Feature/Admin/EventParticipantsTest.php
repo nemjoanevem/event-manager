@@ -68,6 +68,8 @@ class EventParticipantsTest extends TestCase
 
     public function test_admin_can_export_participants_as_csv(): void
     {
+        $this->app->setLocale('en');
+
         $admin = User::factory()->admin()->create();
         Sanctum::actingAs($admin);
 
@@ -91,18 +93,27 @@ class EventParticipantsTest extends TestCase
         $response->assertOk();
         $response->assertHeader('Content-Type', 'text/csv; charset=UTF-8');
 
-        // StreamedResponse content
         $content = method_exists($response, 'streamedContent')
             ? $response->streamedContent()
             : $response->getContent();
 
-        // Header row
-        $this->assertMatchesRegularExpression(
-            '/^Name,Email,"?Seats booked"?,"?Booked at"?\s/m',
-            $content
-        );
+        // Build expected translated header
+        $expectedHeader = implode(',', [
+            __('events.Name'),
+            __('events.Email'),
+            __('events.Seats booked'),
+            __('events.Booked at'),
+        ]);
 
-        // Data row
+        // fputcsv may quote fields that contain spaces, so allow optional quotes
+        $pattern = '/^' . preg_quote(__('events.Name'), '/') .
+            ',' . preg_quote(__('events.Email'), '/') .
+            ',"?' . preg_quote(__('events.Seats booked'), '/') . '"?' .
+            ',"?' . preg_quote(__('events.Booked at'), '/') . '"?\s/m';
+
+        $this->assertMatchesRegularExpression($pattern, $content);
+
+        // Data row checks
         $this->assertStringContainsString('Jane Doe', $content);
         $this->assertStringContainsString('jane@example.com', $content);
         $this->assertStringContainsString('3', $content);

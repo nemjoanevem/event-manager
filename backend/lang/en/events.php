@@ -8,4 +8,8 @@ return [
     'delete_success' => 'Event deleted successfully.',
     'participants_list_success' => 'Participants fetched successfully.',
     'capacity_too_low' => 'The capacity cannot be set lower than the number of already booked seats.',
+    'Name' => 'Name',
+    'Email' => 'Email',
+    'Seats booked' => 'Seats booked',
+    'Booked at' => 'Booked at',
 ];

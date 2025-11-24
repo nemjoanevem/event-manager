@@ -8,4 +8,8 @@ return [
     'delete_success' => 'Esemény sikeresen törölve.',
     'participants_list_success' => 'Résztvevők sikeresen lekérdezve.',
     'capacity_too_low' => 'A kapacitás nem állítható alacsonyabbra, mint a már lefoglalt helyek száma.',
+    'Name' => 'Név',
+    'Email' => 'Email',
+    'Seats booked' => 'Lefoglalt helyek',
+    'Booked at' => 'Lefoglalva',
 ];
