@@ -12,13 +12,6 @@
             <!-- Main navigation -->
             <nav class="flex items-center gap-4">
                 <router-link
-                    :to="{ name: 'events.index' }"
-                    class="text-sm font-medium text-gray-700 hover:text-gray-900 hover:underline"
-                >
-                    {{ t("nav.events") }}
-                </router-link>
-
-                <router-link
                     v-if="auth.isAuthenticated"
                     :to="{ name: 'bookings.mine' }"
                     class="text-sm font-medium text-gray-700 hover:text-gray-900 hover:underline"

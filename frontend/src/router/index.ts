@@ -6,8 +6,7 @@ import { useAuthStore } from "@/stores/auth";
 const LoginView = () => import("../views/LoginView.vue");
 const EventsListView = () => import("../views/EventsListView.vue");
 const EventShowView = () => import("../views/EventShowView.vue");
-/*const MyBookingsView = () => import("../views/MyBookingsView.vue");
-const AdminEventEditView = () => import("../views/admin/AdminEventEditView.vue");*/
+const MyBookingsView = () => import("../views/MyBookingsView.vue");
 const NotFoundView = () => import("../views/NotFoundView.vue");
 
 declare module "vue-router" {
@@ -40,21 +39,12 @@ const routes: RouteRecordRaw[] = [
         component: EventShowView,
         props: true,
     },
-    /*{
+    {
         path: "/my-bookings",
         name: "bookings.mine",
         component: MyBookingsView,
         meta: { requiresAuth: true },
     },
-
-    // Admin example routes (we will implement later)
-    {
-        path: "/admin/events/:id/edit",
-        name: "admin.events.edit",
-        component: AdminEventEditView,
-        props: true,
-        meta: { requiresAuth: true, requiresAdmin: true },
-    },*/
 
     // 404 must be last
     {
