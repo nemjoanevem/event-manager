@@ -3,39 +3,26 @@ import type { AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConf
 import { useUiStore } from "@/stores/ui";
 import { useAuthStore } from "@/stores/auth";
 
-/**
- * API client configured for Laravel Sanctum SPA auth.
- *
- * Requirements:
- * - withCredentials: true (cookies)
- * - CSRF cookie bootstrap before state-changing requests
- */
-const apiBaseUrl = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000/api";
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000";
 
 export const api: AxiosInstance = axios.create({
-    baseURL: `${apiBaseUrl}`,
+    baseURL: `${apiBaseUrl}/api`,
     withCredentials: true,
+    xsrfCookieName: "XSRF-TOKEN",
+    xsrfHeaderName: "X-XSRF-TOKEN",
     headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",
     },
 });
 
-let csrfReady = false;
-
 /**
  * Fetch Sanctum CSRF cookie once per app session.
  */
 async function ensureCsrfCookie(): Promise<void> {
-    if (csrfReady) {
-        return;
-    }
-
     await axios.get(`${apiBaseUrl}/sanctum/csrf-cookie`, {
         withCredentials: true,
     });
-
-    csrfReady = true;
 }
 
 /**
@@ -53,6 +40,10 @@ api.interceptors.request.use(
 
         if (isMutating) {
             await ensureCsrfCookie();
+            const token = getCookie("XSRF-TOKEN");
+            if (token) {
+                (config.headers as any)["X-XSRF-TOKEN"] = token;
+            }
         }
 
         return config;
@@ -87,3 +78,14 @@ api.interceptors.response.use(
         return Promise.reject(error);
     }
 );
+
+function getCookie(name: string) {
+    const m = document.cookie.match(
+        new RegExp(
+            "(?:^|; )" +
+                name.replace(/([.$?*|{}()[\]\\/+^])/g, "\\$1") +
+                "=([^;]*)"
+        )
+    );
+    return m?.[1] ? decodeURIComponent(m[1]) : null;
+}

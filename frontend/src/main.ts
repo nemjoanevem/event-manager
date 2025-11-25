@@ -1,16 +1,24 @@
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
+import { createApp } from "vue";
+import { createPinia } from "pinia";
 
-import App from './App.vue'
-import router from './router'
-import i18n from "./plugins/i18n"
+import App from "./App.vue";
+import router from "./router";
+import i18n from "./plugins/i18n";
 
-import './index.css'
+import "./index.css";
 
-const app = createApp(App)
+import { useAuthStore } from "@/stores/auth";
 
-app.use(createPinia())
-app.use(router)
-app.use(i18n)
+const app = createApp(App);
 
-app.mount('#app')
+const pinia = createPinia();
+
+app.use(pinia);
+app.use(router);
+app.use(i18n);
+
+const auth = useAuthStore(pinia);
+
+auth.init().finally(() => {
+    app.mount("#app");
+});
