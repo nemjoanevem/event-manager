@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Event;
 use App\Models\User;
+use Illuminate\Validation\ValidationException;
 
 class AdminEventService
 {
