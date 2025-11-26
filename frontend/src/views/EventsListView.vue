@@ -107,7 +107,7 @@
                         class="shrink-0 rounded-full px-2 py-1 text-xs font-medium"
                         :class="event.available_seats > 0 ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'"
                     >
-                        {{ seatsLabel(event.available_seats) }}
+                        {{ seatsLabel(event) }}
                     </span>
                 </div>
 
@@ -118,12 +118,12 @@
                 <div class="mt-3 space-y-1 text-sm text-gray-600">
                     <div class="flex items-center gap-2">
                         <span class="font-medium text-gray-800">{{ t("events.starts_at") }}:</span>
-                        <span>{{ formatDate(event.starts_at) }}</span>
+                        <span>{{ formatEventDate(event.starts_at) }}</span>
                     </div>
 
                     <div class="flex items-center gap-2">
                         <span class="font-medium text-gray-800">{{ t("events.ends_at") }}:</span>
-                        <span>{{ formatDate(event.ends_at) }}</span>
+                        <span>{{ formatEventDate(event.ends_at) }}</span>
                     </div>
 
                     <div class="flex items-center gap-2">
@@ -134,7 +134,7 @@
                     <div class="flex items-center gap-2">
                         <span class="font-medium text-gray-800">{{ t("events.price") }}:</span>
                         <span>
-                            {{ event.price > 0 ? formatPrice(event.price) : t("events.free") }}
+                            {{ event.price > 0 ? formatEventPrice(event.price) : t("events.free") }}
                         </span>
                     </div>
                 </div>
@@ -213,6 +213,7 @@ import { useAuthStore } from "@/stores/auth";
 import BookingModal from "@/components/BookingModal.vue";
 import type { BookableEvent } from "@/components/BookingModal.vue";
 import AdminEventCreateModal from "@/components/AdminEventCreateModal.vue";
+import { useEventHelpers } from "@/composables/useEventHelpers";
 
 const auth = useAuthStore();
 
@@ -260,6 +261,12 @@ type PaginationMeta = {
 };
 
 const { t, locale } = useI18n();
+
+const {
+    formatEventDate,
+    formatEventPrice,
+    seatsLabel,
+} = useEventHelpers();
 
 const events = ref<EventListItem[]>([]);
 const meta = reactive<PaginationMeta>({
@@ -337,44 +344,6 @@ function goToPage(page: number): void {
 function toggleSortDir(): void {
     filters.sort_dir = filters.sort_dir === "asc" ? "desc" : "asc";
     applyFilters();
-}
-
-/**
- * Format date in current locale.
- */
-function formatDate(value: string): string {
-    try {
-        const dt = new Date(value);
-        return new Intl.DateTimeFormat(locale.value, {
-            dateStyle: "medium",
-            timeStyle: "short",
-        }).format(dt);
-    } catch {
-        return value;
-    }
-}
-
-/**
- * Format price in HUF by default.
- * If you add multi-currency later, update this.
- */
-function formatPrice(value: number): string {
-    return new Intl.NumberFormat(locale.value, {
-        style: "currency",
-        currency: "HUF",
-        maximumFractionDigits: 0,
-    }).format(value);
-}
-
-/**
- * Localized seats badge label.
- */
-function seatsLabel(available: number): string {
-    if (available <= 0) {
-        return t("events.sold_out");
-    }
-
-    return t("events.available_seats", { count: available });
 }
 
 /**

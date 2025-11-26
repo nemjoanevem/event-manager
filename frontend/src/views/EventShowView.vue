@@ -5,8 +5,8 @@
             {{ t("common.loading") }}
         </div>
 
-        <div v-else-if="errorMessage" class="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">
-            {{ errorMessage }}
+        <div v-else-if="loadErrorMessage" class="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">
+            {{ loadErrorMessage }}
         </div>
 
         <div v-else-if="event">
@@ -52,7 +52,7 @@
                         <div class="mt-4 grid grid-cols-1 gap-2 text-sm text-gray-700 sm:grid-cols-2">
                             <div>
                                 <span class="font-medium text-gray-900">{{ t("events.starts_at") }}:</span>
-                                <span v-if="!isEditing" class="ml-1">{{ formatDate(event.starts_at) }}</span>
+                                <span v-if="!isEditing" class="ml-1">{{ formatEventDate(event.starts_at) }}</span>
 
                                 <input
                                     v-else
@@ -64,7 +64,7 @@
 
                             <div>
                                 <span class="font-medium text-gray-900">{{ t("events.ends_at") }}:</span>
-                                <span v-if="!isEditing" class="ml-1">{{ formatDate(event.ends_at) }}</span>
+                                <span v-if="!isEditing" class="ml-1">{{ formatEventDate(event.ends_at) }}</span>
 
                                 <input
                                     v-else
@@ -89,7 +89,7 @@
                             <div>
                                 <span class="font-medium text-gray-900">{{ t("events.price") }}:</span>
                                 <span v-if="!isEditing" class="ml-1">
-                                    {{ event.price > 0 ? formatPrice(event.price) : t("events.free") }}
+                                    {{ event.price > 0 ? formatEventPrice(event.price) : t("events.free") }}
                                 </span>
 
                                 <input
@@ -128,7 +128,7 @@
                             class="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium"
                             :class="event.available_seats > 0 ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'"
                         >
-                            {{ seatsLabel(event.available_seats) }}
+                            {{ seatsLabel(event) }}
                         </span>
 
                         <!-- Book button for authenticated users -->
@@ -171,6 +171,13 @@
                             >
                                 {{ isSaving ? t("common.loading") : t("common.save") }}
                             </button>
+                        </div>
+
+                        <div
+                            v-if="isEditing && editErrorMessage"
+                            class="mt-3 rounded-xl bg-red-50 px-4 py-2 text-sm text-red-700"
+                        >
+                            {{ editErrorMessage }}
                         </div>
                     </div>
                 </div>
@@ -291,7 +298,7 @@
                                 <td class="px-3 py-2">{{ p.name }}</td>
                                 <td class="px-3 py-2">{{ p.email }}</td>
                                 <td class="px-3 py-2 text-right">{{ p.seats_booked }}</td>
-                                <td class="px-3 py-2">{{ formatDate(p.created_at) }}</td>
+                                <td class="px-3 py-2">{{ formatEventDate(p.created_at) }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -347,6 +354,7 @@ import { useI18n } from "vue-i18n";
 import { api } from "@/lib/api";
 import { useAuthStore } from "@/stores/auth";
 import BookingModal, { type BookableEvent } from "@/components/BookingModal.vue";
+import { useEventHelpers } from "@/composables/useEventHelpers";
 
 /**
  * Tiny helper component for sort arrows.
@@ -397,9 +405,17 @@ const { t, locale } = useI18n();
 const route = useRoute();
 const auth = useAuthStore();
 
+const {
+    formatEventDate,
+    formatEventPrice,
+    seatsLabel,
+} = useEventHelpers();
+
 const event = ref<EventShow | null>(null);
 const isLoading = ref(false);
-const errorMessage = ref<string | null>(null);
+
+const loadErrorMessage = ref<string | null>(null);
+const editErrorMessage = ref<string | null>(null);
 
 const isBookingOpen = ref(false);
 
@@ -464,7 +480,7 @@ async function fetchEvent(): Promise<void> {
     }
 
     isLoading.value = true;
-    errorMessage.value = null;
+    loadErrorMessage.value = null;
 
     try {
         const res = await api.get(`/events/${id}`);
@@ -480,7 +496,7 @@ async function fetchEvent(): Promise<void> {
             await fetchParticipants(1);
         }
     } catch (e: any) {
-        errorMessage.value = e?.response?.data?.message ?? t("common.unknown_error");
+        loadErrorMessage.value = e?.response?.data?.message ?? t("common.unknown_error");
     } finally {
         isLoading.value = false;
     }
@@ -547,7 +563,7 @@ async function saveEdit(): Promise<void> {
         isEditing.value = false;
         await fetchEvent();
     } catch (e: any) {
-        errorMessage.value = e?.response?.data?.message ?? t("common.unknown_error");
+        editErrorMessage.value = e?.response?.data?.message ?? t("common.unknown_error");
     } finally {
         isSaving.value = false;
     }
@@ -650,37 +666,6 @@ async function exportParticipants(): Promise<void> {
     a.remove();
 
     window.URL.revokeObjectURL(url);
-}
-
-/**
- * UI helpers.
- */
-function formatDate(value: string): string {
-    try {
-        const dt = new Date(value);
-        return new Intl.DateTimeFormat(locale.value, {
-            dateStyle: "medium",
-            timeStyle: "short",
-        }).format(dt);
-    } catch {
-        return value;
-    }
-}
-
-function formatPrice(value: number): string {
-    return new Intl.NumberFormat(locale.value, {
-        style: "currency",
-        currency: "HUF",
-        maximumFractionDigits: 0,
-    }).format(value);
-}
-
-function seatsLabel(available: number): string {
-    if (available <= 0) {
-        return t("events.sold_out");
-    }
-
-    return t("events.available_seats", { count: available });
 }
 
 /**
