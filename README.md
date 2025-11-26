@@ -8,11 +8,12 @@ The goal is to provide a clean, modern event booking application with a **single
 
 ## 🚀 One-Command Startup
 
-After cloning the repository, you can start the whole stack with:
+After cloning the repository, you can start the whole stack from the project root with:
 
 ```bash
 docker compose up -d --build
 ```
+ℹ️ After containers start, the dev servers may take a few extra 10-60 seconds to become reachable. This is normal.
 
 This will:
 
