@@ -69,7 +69,8 @@
         "available_seats": "{count} szabad hely",
         "capacity": "Férőhely",
         "available": "Elérhető",
-        "edit_success": "Esemény sikeresen frissítve."
+        "edit_success": "Esemény sikeresen frissítve.",
+        "past_event": "Ez az esemény már megtörtént."
     },
     "bookings": {
         "book_button": "Foglalás",

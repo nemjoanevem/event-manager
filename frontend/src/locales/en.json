@@ -69,7 +69,8 @@
         "available_seats": "{count} seats left",
         "capacity": "Capacity",
         "available": "Available",
-        "edit_success": "Event updated successfully."
+        "edit_success": "Event updated successfully.",
+        "past_event": "This event has already taken place."
     },
     "bookings": {
         "book_button": "Book",

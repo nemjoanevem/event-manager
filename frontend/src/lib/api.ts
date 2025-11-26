@@ -20,8 +20,13 @@ export const api: AxiosInstance = axios.create({
  * Fetch Sanctum CSRF cookie once per app session.
  */
 async function ensureCsrfCookie(): Promise<void> {
+    const locale = getCurrentLocale();
+
     await axios.get(`${apiBaseUrl}/sanctum/csrf-cookie`, {
         withCredentials: true,
+        headers: {
+            "Accept-Language": locale,
+        },
     });
 }
 
@@ -37,6 +42,9 @@ api.interceptors.request.use(
 
         const method = (config.method ?? "get").toLowerCase();
         const isMutating = ["post", "put", "patch", "delete"].includes(method);
+
+        const locale = getCurrentLocale();
+        (config.headers as any)["Accept-Language"] = locale;
 
         if (isMutating) {
             await ensureCsrfCookie();
@@ -88,4 +96,8 @@ function getCookie(name: string) {
         )
     );
     return m?.[1] ? decodeURIComponent(m[1]) : null;
+}
+
+function getCurrentLocale(): string {
+    return localStorage.getItem("app_lang") || "en";
 }
