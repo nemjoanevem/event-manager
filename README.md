@@ -56,6 +56,13 @@ You do **not** need to run `php artisan serve`, `npm run dev`, or `php artisan m
   - Services, policies, form requests, resources
   - Clear separation of concerns
 
+### 🔑 Admin User from Seeder
+
+The database seeder automatically creates a default administrator account:
+
+- **Email:** `admin@example.com`  
+- **Password:** `password`  
+
 ### Frontend (Vue 3 + TypeScript)
 
 - Vue Router with navigation guards
